@@ -7,6 +7,10 @@ public class Nota {
 	private String nome;
 	
 	private String laudo;
+	
+	private String arquivo;
+	
+	private String anota;
 
 	public int getId() {
 		return id;
@@ -30,6 +34,22 @@ public class Nota {
 
 	public void setLaudo(String laudo) {
 		this.laudo = laudo;
+	}
+
+	public String getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	public String getAnota() {
+		return anota;
+	}
+
+	public void setAnota(String anota) {
+		this.anota = anota;
 	}
 	
 	}

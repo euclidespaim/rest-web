@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -37,18 +39,39 @@ public class NotasService {
 		return lista;
 	}
 	
-	/*@GET
+	@POST
+	@Path ("/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addNota(Nota nota){
+		String msg = "";
+		
+		System.out.println(nota.getNome());
+		
+		try {
+			notaDAO.addNota(nota);
+			
+			msg = "Entrada inserida com sucesso!";
+		}catch (Exception e){
+			msg = "Atenção: Erro ao inserir dados!";
+			e.printStackTrace();
+		}
+		
+		return msg;
+		}
+
+	@GET
 	@Path("/get/{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Nota buscarNotaPorId(@PathParam("id") int idNota){
+	public Nota buscarNotaPorId(@PathParam("id") int idAnota){
 		Nota nota = null;
 		try {
-			Nota = NotaDAO.buscarNotaPorId(idNota);
+			nota = NotaDAO.buscarNotaPorId(idAnota);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Nota;*/
-	
+		return nota;
+	}
 }
 
