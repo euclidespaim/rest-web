@@ -10,7 +10,7 @@ public class Nota {
 	
 	private String arquivo;
 	
-	private String anota;
+	private String nota;
 
 	public int getId() {
 		return id;
@@ -44,12 +44,12 @@ public class Nota {
 		this.arquivo = arquivo;
 	}
 
-	public String getAnota() {
-		return anota;
+	public String getNota() {
+		return nota;
 	}
 
-	public void setAnota(String anota) {
-		this.anota = anota;
+	public void setNota(String nota) {
+		this.nota = nota;
 	}
 	
 	}

@@ -27,7 +27,7 @@ public class NotaDAO {
 			nota.setNome(rs.getString("NOME"));
 			nota.setLaudo(rs.getString("LAUDO"));
 			nota.setArquivo(rs.getString("ARQUIVO"));
-			nota.setAnota(rs.getString("ANOTA"));
+			nota.setNota(rs.getString("NOTA"));
 			
 			
 			lista.add(nota);
@@ -53,7 +53,7 @@ public class NotaDAO {
 			nota.setNome(rs.getString("NOME"));
 			nota.setLaudo(rs.getString("LAUDO"));
 			nota.setArquivo(rs.getString("ARQUIVO"));
-			nota.setAnota(rs.getString("NOTA"));
+			nota.setNota(rs.getString("NOTA"));
 		}
 		
 		return nota;		
@@ -63,17 +63,17 @@ public class NotaDAO {
 	public void addNota(Nota nota) throws Exception {
 		Connection conexao = BDConfig.getConnection();
 		
-		String sql = "INSERT INTO TB_DCM(NOME, LAUDO, ARQUIVO, ANOTA) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO TB_DCM(NOME, LAUDO, ARQUIVO, NOTA) VALUES(?, ?, ?, ?)";
 		
 		PreparedStatement statement = conexao.prepareStatement(sql);
 		statement.setString(1, nota.getNome());
 		statement.setString(2, nota.getLaudo());
 		statement.setString(3, nota.getArquivo());
-		statement.setString(4, nota.getAnota());
+		statement.setString(4, nota.getNota());
 		statement.execute();
 	}
 	
-	public void updateNota(Nota nota) throws Exception {
+	public void updateNota(Nota nota, int idNota) throws Exception {
 		Connection conexao = BDConfig.getConnection();
 		
 		String sql = "UPDATE TB_DCM SET NOME = ?, LAUDO = ? WHERE ID = ?";

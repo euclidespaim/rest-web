@@ -8,6 +8,7 @@ import javax.print.attribute.standard.Media;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -64,14 +65,37 @@ public class NotasService {
 	@Path("/get/{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Nota buscarNotaPorId(@PathParam("id") int idAnota){
+	public Nota buscarNotaPorId(@PathParam("id") int idNota){
 		Nota nota = null;
 		try {
-			nota = NotaDAO.buscarNotaPorId(idAnota);
+			nota = NotaDAO.buscarNotaPorId(idNota);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return nota;
 	}
+	
+	@PUT
+	@Path("/edit/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateNota(Nota nota, @PathParam("id") int idNota) {
+		String msg = "";
+		
+		System.out.println(nota.getNome());
+		
+		try {
+			notaDAO.updateNota(nota, idNota);
+			
+			msg = "Entrada editada com sucesso!";
+		} catch (Exception e) {
+			msg = "Erro ao editar entrada!";
+			e.printStackTrace();
+		}
+		return msg;
+	}			
 }
+
+
+
 
