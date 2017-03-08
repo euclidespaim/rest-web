@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -93,8 +94,28 @@ public class NotasService {
 			e.printStackTrace();
 		}
 		return msg;
-	}			
+	}	
+	
+	@DELETE
+	@Path("delete/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateNota(@PathParam("id") int idNota) {
+		String msg = "";
+		
+		try {
+			notaDAO.removerNota(idNota);
+			
+			msg = "Entrada removida com sucesso.";
+		} catch (Exception e) {
+			msg = "Erro ao remover entrada!";
+			e.printStackTrace();
+		}
+		
+		return msg;
+	}
 }
+
 
 
 
