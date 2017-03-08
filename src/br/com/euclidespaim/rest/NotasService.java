@@ -21,6 +21,8 @@ import br.com.euclidespaim.entity.Nota;
 @Path("/notas") 
 public class NotasService {
 	
+	private static final String CHARSET_UTF8 = ";charset=utf-8";
+	
 	private NotaDAO notaDAO;
 	
 	@PostConstruct
@@ -43,7 +45,7 @@ public class NotasService {
 	
 	@POST
 	@Path ("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addNota(Nota nota){
 		String msg = "";
@@ -78,7 +80,7 @@ public class NotasService {
 	
 	@PUT
 	@Path("/edit/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateNota(Nota nota, @PathParam("id") int idNota) {
 		String msg = "";
