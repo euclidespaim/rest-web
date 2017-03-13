@@ -3,10 +3,10 @@
 <body>
 	<h1>JAX-RS Upload Form</h1>
 
-	<form action="/rest/fileUpload" method="Post" enctype="multipart/mixed">
+	<form action="http://localhost:8080/rest-web/rest/upload" method="Post" enctype="multipart/form-data">
 
 	   <p>
-		Select a file : <input type="file" name="uploadedFile" size="50" />
+		Select a file : <input type="file" name="uploadedFile" />
 	   </p>
 
 	   <input type="submit" value="Upload It" />
