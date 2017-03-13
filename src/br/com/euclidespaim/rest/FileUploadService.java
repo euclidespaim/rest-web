@@ -17,7 +17,7 @@ public class FileUploadService {
 	@Consumes("multipart/form-data")
 	public Response uploadFile(@MultipartForm FileUploadForm form) {
 
-		String fileName = "d:\\anything";
+		String fileName = "c:\\anything";
 
 		try {
 			writeFile(form.getData(), fileName);

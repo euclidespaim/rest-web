@@ -98,7 +98,7 @@ public class NotasService {
 	}	
 	
 	@DELETE
-	@Path("delete/{id}")
+	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateNota(@PathParam("id") int idNota) {
