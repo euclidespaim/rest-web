@@ -5,20 +5,43 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.ext.Provider;
+import javax.ws.rs.ext.WriterInterceptor;
+import javax.ws.rs.ext.WriterInterceptorContext;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 @Path("/upload")
 public class FileUploadService {
+	
+	@Provider
+	@Compress
+	public class GZIPWriterInterceptor implements WriterInterceptor {
+
+	    @Override
+	    public void aroundWriteTo(WriterInterceptorContext context)
+	                    throws IOException, WebApplicationException {
+
+	    	MultivaluedMap<String,Object> headers = context.getHeaders();
+	    	headers.add("Content-Encoding", "gzip");
+
+	        final OutputStream outputStream = context.getOutputStream();
+	        context.setOutputStream(new GZIPOutputStream(outputStream));
+	        context.proceed();
+	    }
+	}
 	/** The path to the folder where we want to store the uploaded files */
 	private static final String UPLOAD_FOLDER = "C:\\Users\\Kid\\Desktop\\up/";
 	public FileUploadService() {
