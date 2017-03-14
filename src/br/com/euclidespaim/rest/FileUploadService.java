@@ -5,114 +5,90 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.zip.GZIPOutputStream;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.ext.Provider;
-import javax.ws.rs.ext.WriterInterceptor;
-import javax.ws.rs.ext.WriterInterceptorContext;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-
-@Path("/upload")
-public class FileUploadService {
 	
-	@Provider
-	@Compress
-	public class GZIPWriterInterceptor implements WriterInterceptor {
-
-	    @Override
-	    public void aroundWriteTo(WriterInterceptorContext context)
-	                    throws IOException, WebApplicationException {
-
-	    	MultivaluedMap<String,Object> headers = context.getHeaders();
-	    	headers.add("Content-Encoding", "gzip");
-
-	        final OutputStream outputStream = context.getOutputStream();
-	        context.setOutputStream(new GZIPOutputStream(outputStream));
-	        context.proceed();
+	@Path("/fileservice")
+	public class FileUploadService implements IFileService {
+	 
+	    public static final String UPLOAD_FILE_SERVER = "C:\\Users\\Kid\\Desktop\\up/";
+	 
+	    // http://localhost:8080/rest-web/rest/fileservice/download/zip
+	    @GET
+	    @Path("/download/zip")
+	    @Produces("application/zip")
+	    public Response downloadZippedFile() {
+	 
+	        // set file (and path) to be download
+	        File file = new File("C:\\Users\\Kid\\Desktop\\down/dicom.zip");
+	 
+	        ResponseBuilder responseBuilder = Response.ok((Object) file);
+	        responseBuilder.header("Content-Disposition", "attachment; filename=\"Zdicom.zip\"");
+	        return responseBuilder.build();
+	    }
+	 
+	    // http://localhost:8080/rest-web/rest/fileservice/upload/zip
+	    @POST
+	    @Path("/upload/zip")
+	    @Consumes(MediaType.MULTIPART_FORM_DATA)
+	    public Response uploadZippedFile(
+	            @FormDataParam("uploadFile") InputStream fileInputStream,
+	            @FormDataParam("uploadFile") FormDataContentDisposition fileFormDataContentDisposition) {
+	 
+	        // local variables
+	        String fileName = null;
+	        String uploadFilePath = null;
+	 
+	        try {
+	            fileName = fileFormDataContentDisposition.getFileName();
+	            uploadFilePath = writeToFileServer(fileInputStream, fileName);
+	        }
+	        catch(IOException ioe){
+	            ioe.printStackTrace();
+	        }
+	        finally{
+	            // release resources, if any
+	        }
+	        return Response.ok("File uploaded successfully at " + uploadFilePath).build();
+	    }
+	 
+	    /**
+	     * write input stream to file server
+	     * @param inputStream
+	     * @param fileName
+	     * @throws IOException
+	     */
+	    private String writeToFileServer(InputStream inputStream, String fileName) throws IOException {
+	 
+	        OutputStream outputStream = null;
+	        String qualifiedUploadFilePath = UPLOAD_FILE_SERVER + fileName;
+	 
+	        try {
+	            outputStream = new FileOutputStream(new File(qualifiedUploadFilePath));
+	            int read = 0;
+	            byte[] bytes = new byte[1024];
+	            while ((read = inputStream.read(bytes)) != -1) {
+	                outputStream.write(bytes, 0, read);
+	            }
+	            outputStream.flush();
+	        }
+	        catch (IOException ioe) {
+	            ioe.printStackTrace();
+	        }
+	        finally{
+	            //release resource, if any
+	            outputStream.close();
+	        }
+	        return qualifiedUploadFilePath;
 	    }
 	}
-	/** The path to the folder where we want to store the uploaded files */
-	private static final String UPLOAD_FOLDER = "C:\\Users\\Kid\\Desktop\\up/";
-	public FileUploadService() {
-	}
-	@Context
-	private UriInfo context;
-	/**
-	 * Returns text response to caller containing current time-stamp
-	 * 
-	 * @return error response in case of missing parameters an internal
-	 *         exception or success response if file has been stored
-	 *         successfully
-	 */
-	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(
-			@FormDataParam("uploadedFile") InputStream uploadedInputStream,
-			@FormDataParam("uploadedFile") FormDataContentDisposition fileDetail) {
-		// check if all form parameters are provided
-		if (uploadedInputStream == null || fileDetail == null)
-			return Response.status(400).entity("Invalid form data").build();
-		// create our destination folder, if it not exists
-		try {
-			createFolderIfNotExists(UPLOAD_FOLDER);
-		} catch (SecurityException se) {
-			return Response.status(500)
-					.entity("Can not create destination folder on server")
-					.build();
-		}
-		String uploadedFileLocation = UPLOAD_FOLDER + fileDetail.getFileName();
-		try {
-			saveToFile(uploadedInputStream, uploadedFileLocation);
-		} catch (IOException e) {
-			return Response.status(500).entity("Can not save file").build();
-		}
-		return Response.status(200)
-				.entity("File saved to " + uploadedFileLocation).build();
-	}
-	/**
-	 * Utility method to save InputStream data to target location/file
-	 * 
-	 * @param inStream
-	 *            - InputStream to be saved
-	 * @param target
-	 *            - full path to destination file
-	 */
-	private void saveToFile(InputStream inStream, String target)
-			throws IOException {
-		OutputStream out = null;
-		int read = 0;
-		byte[] bytes = new byte[1024];
-		out = new FileOutputStream(new File(target));
-		while ((read = inStream.read(bytes)) != -1) {
-			out.write(bytes, 0, read);
-		}
-		out.flush();
-		out.close();
-	}
-	/**
-	 * Creates a folder to desired location if it not already exists
-	 * 
-	 * @param dirName
-	 *            - full path to the folder
-	 * @throws SecurityException
-	 *             - in case you don't have permission to create the folder
-	 */
-	private void createFolderIfNotExists(String dirName)
-			throws SecurityException {
-		File theDir = new File(dirName);
-		if (!theDir.exists()) {
-			theDir.mkdir();
-		}
-	}
-}
