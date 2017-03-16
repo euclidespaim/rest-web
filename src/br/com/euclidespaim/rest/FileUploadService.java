@@ -21,7 +21,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 	@Path("/fileservice")
 	public class FileUploadService implements IFileService {
 	 
-	    public static final String UPLOAD_FILE_SERVER = "C:\\Users\\Kid\\Desktop\\up\\";
+	    public static final String UPLOAD_FILE_SERVER = "/home/ec2-user/up/";
 	 
 	    // http://localhost:8080/rest-web/rest/fileservice/download/zip
 	    @GET
@@ -30,7 +30,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 	    public Response downloadZippedFile() {
 	 
 	        // set file (and path) to be download
-	        File file = new File("C:\\Users\\Kid\\Desktop\\up\\dicom.zip");
+	        File file = new File("/home/ec2-user/up/dicom.zip");
 	 
 	        ResponseBuilder responseBuilder = Response.ok((Object) file);
 	        responseBuilder.header("Content-Disposition", "attachment; filename=\"Zdicom.zip\"");

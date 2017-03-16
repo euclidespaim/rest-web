@@ -39,7 +39,7 @@ public class ServerTransfer {
 			int bytesRead;
 
 			// Criando arquivo que sera transferido pelo servidor
-			File file = new File("C:\\Users\\Kid\\Desktop\\up\\teste.zip");
+			File file = new File("/home/ec2-user/up/teste.zip");
 			fileIn = new FileInputStream(file);
 			System.out.println("Lendo arquivo...");
 			

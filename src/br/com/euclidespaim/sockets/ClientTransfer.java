@@ -24,7 +24,7 @@ public class ClientTransfer {
 		try {
 			// Criando conexão com o servidor
 			System.out.println("Conectando com Servidor porta 13267");
-			sockServer = new Socket("ec2-54-89-16-192.compute-1.amazonaws.com", 13267);
+			sockServer = new Socket("ec2-54-89-119-233.compute-1.amazonaws.com", 13267);
 			is = sockServer.getInputStream();
 
 			// Cria arquivo local no cliente
