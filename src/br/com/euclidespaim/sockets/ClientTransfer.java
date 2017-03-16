@@ -24,12 +24,12 @@ public class ClientTransfer {
 		try {
 			// Criando conexão com o servidor
 			System.out.println("Conectando com Servidor porta 13267");
-			sockServer = new Socket("localhost", 13267);
+			sockServer = new Socket("ec2-54-89-16-192.compute-1.amazonaws.com", 13267);
 			is = sockServer.getInputStream();
 
 			// Cria arquivo local no cliente
-			fos = new FileOutputStream(new File("C:\\Users\\Kid\\Desktop\\up\\upsource-copy.zip"));
-			System.out.println("Arquivo Local Criado C:\\Users\\Kid\\Desktop\\up\\source-copy.zip");
+			fos = new FileOutputStream(new File("C:\\Users\\Kid\\Desktop\\down\\upsource-copy.zip"));
+			System.out.println("Arquivo Local Criado C:\\Users\\Kid\\Desktop\\down\\source-copy.zip");
 			
 			// Prepara variaveis para transferencia
 			byte[] cbuffer = new byte[1024];

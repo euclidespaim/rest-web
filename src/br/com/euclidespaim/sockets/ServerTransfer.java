@@ -7,11 +7,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**@author Lucas iorio - http://www.byiorio.com
- * 
- * @author Lucas iorio - http://www.byiorio.com
- *
- */
+
 public class ServerTransfer {
 	public static void main(String[] args) {
 
@@ -30,7 +26,7 @@ public class ServerTransfer {
 		FileInputStream fileIn = null;
 
 		try {
-			// Abrindo porta para conexao de clients
+			// Abrindo porta para conexao de clientes
 			servsock = new ServerSocket(13267);
 			System.out.println("Porta de conexao aberta 13267");
 
