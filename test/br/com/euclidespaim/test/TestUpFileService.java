@@ -31,9 +31,9 @@ public class TestUpFileService {
  
     /**
      * uploads zip file using the input HTTP URL
-     * @param httpURL
-     * @param filePath
-     * @param filename
+     * @param httpURL...
+     * @param filePath...
+     * @param filename...
      * @return
      * @throws Exception
      */
