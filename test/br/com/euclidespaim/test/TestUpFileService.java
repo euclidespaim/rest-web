@@ -30,10 +30,10 @@ public class TestUpFileService {
     }
  
     /**
-     * uploads zip file using the input HTTP URL
-     * @param httpURL...
-     * @param filePath...
-     * @param filename...
+     * uploads zip file using the input HTTP URL Test
+     * @param httpURL
+     * @param filePath
+     * @param filename
      * @return
      * @throws Exception
      */
