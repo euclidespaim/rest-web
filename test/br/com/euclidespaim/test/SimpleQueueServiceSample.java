@@ -76,7 +76,7 @@ public class SimpleQueueServiceSample {
             
             for (int i = 0; i < 10; i++) {
             // Receive messages
-            System.out.println("Receiving messages from Kid-Queue.\n");
+            System.out.println("Receiving messages from DICOM-Queue.\n");
             ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(myQueueUrl);
             List<Message> messages = sqs.receiveMessage(receiveMessageRequest).getMessages();
             for (Message message : messages) {
