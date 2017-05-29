@@ -1,4 +1,4 @@
-package br.com.euclidespaim.test;
+package com.euclidespaim.master;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -74,7 +74,7 @@ public class SimpleQueueServiceSample {
 	        sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
             */
             
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 15; i++) {
             // Receive messages
             System.out.println("Receiving messages from DICOM-Queue.\n");
             ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(myQueueUrl);
