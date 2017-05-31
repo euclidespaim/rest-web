@@ -1,6 +1,9 @@
 package com.euclidespaim.master;
 
+import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.amazonaws.AmazonClientException;
@@ -16,6 +19,7 @@ import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.DeleteMessageRequest;
 import com.amazonaws.services.sqs.model.DeleteQueueRequest;
 import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.MessageAttributeValue;
 import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 
@@ -69,13 +73,17 @@ public class SimpleQueueServiceSample {
             }
             System.out.println();
 
-            /*/ Send a message
-            System.out.println("Sending a message to MyQueue.\n");
-	        sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
-            */
+            // Send a message
+            for (int i = 0; i < 100; i++) {	
+	            System.out.println("Sending a message to DICOM-Queue.\n");
+		        sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
+		        Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
+		        messageAttributes.put("PhoneIcon", new MessageAttributeValue().withDataType("C:\\Users\\Kid\\Desktop\\up\\000000.dcm").withBinaryValue(ByteBuffer.wrap(new byte[10])));
+	            System.out.println("Message delivered! \n");
+	            }
             
-            for (int i = 0; i < 15; i++) {
             // Receive messages
+            for (int i = 0; i < 1000; i++) {
             System.out.println("Receiving messages from DICOM-Queue.\n");
             ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(myQueueUrl);
             List<Message> messages = sqs.receiveMessage(receiveMessageRequest).getMessages();
@@ -94,11 +102,12 @@ public class SimpleQueueServiceSample {
             System.out.println();
 
             // Delete a message
-            System.out.println("Deleting a message.\n");
-            String messageReceiptHandle = messages.get(0).getReceiptHandle();
-            sqs.deleteMessage(new DeleteMessageRequest(myQueueUrl, messageReceiptHandle));
-            }
             
+	            System.out.println("Deleting a message.\n");
+	            String messageReceiptHandle = messages.get(0).getReceiptHandle();
+	            sqs.deleteMessage(new DeleteMessageRequest(myQueueUrl, messageReceiptHandle));
+	        }
+          
             
          /*  // Delete a queue
             System.out.println("Deleting the test queue.\n");
@@ -120,3 +129,4 @@ public class SimpleQueueServiceSample {
         }
     }
 }
+    

@@ -32,6 +32,12 @@
 	<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
 	<dependency>
 	    <groupId>com.amazonaws</groupId>
+	    <artifactId>amazon-sqs-java-extended-client-lib</artifactId>
+	    <version>1.0.1</version>
+	    <type>jar</type>
+  </dependency>
+	<dependency>
+	    <groupId>com.amazonaws</groupId>
 	    <artifactId>aws-java-sdk</artifactId>
 	    <version>1.11.133</version>
 	</dependency>   
