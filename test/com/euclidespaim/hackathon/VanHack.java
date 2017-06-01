@@ -1,4 +1,4 @@
-package br.com.euclidespaim.test;
+package com.euclidespaim.hackathon;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

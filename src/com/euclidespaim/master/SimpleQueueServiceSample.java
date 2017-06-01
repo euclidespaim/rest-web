@@ -32,7 +32,9 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 
 public class SimpleQueueServiceSample {
-
+	static //Collects current time 
+	long Inicio = System.currentTimeMillis();
+	
 	public byte[] extractBytes (String ImageName) throws IOException {
 		 // open image
 		 File imgPath = new File("C:\\Users\\Kid\\Desktop\\down\\JustExample.zip");
@@ -44,8 +46,8 @@ public class SimpleQueueServiceSample {
 
 		 return ( data.getData() );
 		}
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws Exception {
-
         /*
          * The ProfileCredentialsProvider returns your [default]
          * credential profile by reading from the credentials file located at
@@ -80,8 +82,6 @@ public class SimpleQueueServiceSample {
           */
         	
             String myQueueUrl = "https://sqs.us-east-1.amazonaws.com/726298423571/Kid-Queue";
-        	
-            //Add Permission
             
             
             // List queues
@@ -92,7 +92,7 @@ public class SimpleQueueServiceSample {
             System.out.println();
 
             // Send a message
-            for (int i = 0; i < 10; i++) {	
+            for (int i = 0; i < 1; i++) {	
 	            System.out.println("Sending a message to DICOM-Queue.\n");
 		        //sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
 		        
@@ -139,7 +139,10 @@ public class SimpleQueueServiceSample {
          /*  // Delete a queue
             System.out.println("Deleting the test queue.\n");
             sqs.deleteQueue(new DeleteQueueRequest(myQueueUrl));*/
-        
+            
+            long Final = System.currentTimeMillis();
+        	System.out.println("Tempo total de execução: " + (Final - Inicio));
+        	
         } catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it " +
                     "to Amazon SQS, but was rejected with an error response for some reason.");

@@ -1,4 +1,4 @@
-package br.com.euclidespaim.test;
+package com.euclidespaim.rest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

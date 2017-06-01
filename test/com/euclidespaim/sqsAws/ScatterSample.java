@@ -1,4 +1,4 @@
-package br.com.euclidespaim.test;
+package com.euclidespaim.sqsAws;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;

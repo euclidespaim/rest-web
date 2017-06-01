@@ -1,4 +1,4 @@
-package br.com.euclidespaim.test;
+package com.euclidespaim.compress;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
