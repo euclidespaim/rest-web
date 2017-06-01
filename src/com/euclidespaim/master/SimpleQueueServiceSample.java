@@ -1,10 +1,17 @@
 package com.euclidespaim.master;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.imageio.ImageIO;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -26,7 +33,18 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 public class SimpleQueueServiceSample {
 
-    public static void main(String[] args) throws Exception {
+	public byte[] extractBytes (String ImageName) throws IOException {
+		 // open image
+		 File imgPath = new File("C:\\Users\\Kid\\Desktop\\down\\JustExample.zip");
+		 BufferedImage bufferedImage = ImageIO.read(imgPath);
+
+		 // get DataBufferBytes from Raster
+		 WritableRaster raster = bufferedImage .getRaster();
+		 DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
+
+		 return ( data.getData() );
+		}
+	public static void main(String[] args) throws Exception {
 
         /*
          * The ProfileCredentialsProvider returns your [default]
@@ -74,16 +92,25 @@ public class SimpleQueueServiceSample {
             System.out.println();
 
             // Send a message
-            for (int i = 0; i < 100; i++) {	
+            for (int i = 0; i < 10; i++) {	
 	            System.out.println("Sending a message to DICOM-Queue.\n");
-		        sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
-		        Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
-		        messageAttributes.put("PhoneIcon", new MessageAttributeValue().withDataType("C:\\Users\\Kid\\Desktop\\up\\000000.dcm").withBinaryValue(ByteBuffer.wrap(new byte[10])));
+		        //sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
+		        
+	            String image = ("C:\\Users\\Kid\\Desktop\\down\\JustExample.zip");
+	            Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
+		        messageAttributes.put("ImageDICOM",  new MessageAttributeValue().withDataType("Binary.JPEG").withBinaryValue(ByteBuffer.wrap(new byte[10])));
+	            	            
+	            SendMessageRequest request = new SendMessageRequest();
+	            request.withMessageBody("A test message body with data attached.");
+	            request.withQueueUrl(myQueueUrl);
+	            request.withMessageAttributes(messageAttributes);
+	            sqs.sendMessage(request);
 	            System.out.println("Message delivered! \n");
-	            }
+	            
+            }
             
             // Receive messages
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 1; i++) {
             System.out.println("Receiving messages from DICOM-Queue.\n");
             ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(myQueueUrl);
             List<Message> messages = sqs.receiveMessage(receiveMessageRequest).getMessages();

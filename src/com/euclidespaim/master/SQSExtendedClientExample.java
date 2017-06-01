@@ -49,7 +49,7 @@ public class SQSExtendedClientExample {
     }
  
     AmazonS3 s3 = new AmazonS3Client(credentials);
-    Region s3Region = Region.getRegion(Regions.US_WEST_2);
+    Region s3Region = Region.getRegion(Regions.US_EAST_1);
     s3.setRegion(s3Region);
  
     // Set the Amazon S3 bucket name, and set a lifecycle rule on the bucket to

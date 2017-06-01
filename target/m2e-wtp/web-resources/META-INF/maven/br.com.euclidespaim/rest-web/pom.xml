@@ -29,7 +29,11 @@
   
   <dependencies>
 
-	<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-compress</artifactId>
+	    <version>1.8</version>
+	</dependency>
 	<dependency>
 	    <groupId>com.amazonaws</groupId>
 	    <artifactId>amazon-sqs-java-extended-client-lib</artifactId>
