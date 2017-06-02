@@ -6,13 +6,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Niraj Singh
- * Date: 3/19/13
- * Time: 12:32 PM
- * To change this template use File | Settings | File Templates.
- */
 public class PhotoProcessor {
 
     public static void  generateImage(String imagePath, String origName, String targetName, int scalabity){

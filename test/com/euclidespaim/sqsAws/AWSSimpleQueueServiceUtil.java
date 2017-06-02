@@ -16,11 +16,7 @@ public class AWSSimpleQueueServiceUtil {
     private String simpleQueue = "PhotoQueue";
     private static volatile  AWSSimpleQueueServiceUtil awssqsUtil = new AWSSimpleQueueServiceUtil();
 
-    /**
-     * instantiates a AmazonSQSClient http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/sqs/AmazonSQSClient.html
-     * Currently using  BasicAWSCredentials to pass on the credentials.
-     * For SQS you need to set your regions endpoint for sqs.
-     */
+    //Need to set your 'region endpoint'. 
     @SuppressWarnings("deprecation")
 	private   AWSSimpleQueueServiceUtil(){
         try{
