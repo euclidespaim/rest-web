@@ -6,7 +6,7 @@ import java.util.zip.ZipOutputStream;
 
 
 public class ScatterSample {
-	 //Creating a zip file with multiple threads
+	 /*/Creating a zip file with multiple threads
 	  ParallelScatterZipCreator scatterZipCreator = new ParallelScatterZipCreator();
 	  ScatterZipOutputStream dirs = ScatterZipOutputStream.fileBased(File.createTempFile("scatter-dirs", "tmp"));
 
@@ -25,5 +25,5 @@ public class ScatterSample {
 	     dirs.writeTo(zipArchiveOutputStream);
 	     dirs.close();
 	     scatterZipCreator.writeTo(zipArchiveOutputStream);
-	  }
+	  }*/
 	}

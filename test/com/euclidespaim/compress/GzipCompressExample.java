@@ -13,7 +13,7 @@ import com.amazonaws.services.cloudfront.model.Paths;
 
 public class GzipCompressExample {
 	
-	InputStream in = Files.newInputStream(Paths.get("archive.tar"));
+/*	InputStream in = Files.newInputStream(Paths.get("archive.tar"));
 	OutputStream fout = Files.newOutputStream(Paths.get("archive.tar.gz"));
 	BufferedOutputStream out = new BufferedInputStream(out);
 	GZipCompressorOutputStream gzOut = new GZipCompressorOutputStream(out);
@@ -24,5 +24,5 @@ public class GzipCompressExample {
 	}
 	gzOut.close();
 	in.close();
-
+*/
 }
