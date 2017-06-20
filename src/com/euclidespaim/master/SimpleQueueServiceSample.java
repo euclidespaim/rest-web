@@ -92,7 +92,7 @@ public class SimpleQueueServiceSample {
             System.out.println();
 
             // Send a message
-            for (int i = 0; i < 1; i++) {	
+            for (int i = 0; i < 1000; i++) {	
 	            System.out.println("Sending a message to DICOM-Queue.\n");
 		        //sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
 		        
